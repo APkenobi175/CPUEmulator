@@ -20,14 +20,15 @@ class Screen {
 
     fun read(row: Int, column: Int): Int = buffer.read(toIndex(row, column))
 
-    fun render(){
-        for (row in 0 until 8){
-            for (col in 0 until 8){
+    fun render() {
+        for (row in 0 until 8) {
+            for (col in 0 until 8) {
                 val b = buffer.read(toIndex(row, col))
-                print(if(b < 0x20) ' ' else b.toChar())
+                print(b.toChar())          // raw char, no space substitution
             }
-            println() // new line
+            println()
         }
+        println("========")               // frame separator
     }
 
     fun clear(){

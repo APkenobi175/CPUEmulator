@@ -5,6 +5,7 @@ class Keyboard {
     fun readByte(): Int {
 
         while (true) {
+            print("Input (hex): ")
             val input = readlnOrNull() ?: ""
             try {
                 return parse(input)

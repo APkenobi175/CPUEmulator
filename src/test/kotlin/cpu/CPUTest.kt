@@ -3,6 +3,8 @@ package cpu
 import instructions.Add
 import instructions.Draw
 import instructions.Sub
+import io.Keyboard
+import io.Screen
 import org.junit.jupiter.api.DisplayName
 import testCpu
 import kotlin.test.Test
@@ -42,7 +44,7 @@ class CPUTest {
     fun testFetchCombinesTwoBytes() {
         val rom = ROM()
         rom.load(byteArrayOf(0x12, 0x34))
-        val cpu = testCpu()
+        val cpu = CPU(rom, Screen(), Keyboard(), Timer())
         // fetch reads PC=0: high=0x12, low=0x34 -> 0x1234
         assertEquals(0x1234, cpu.fetch())
     }

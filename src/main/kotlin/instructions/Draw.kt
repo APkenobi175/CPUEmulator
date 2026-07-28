@@ -7,7 +7,7 @@ class Draw(cpu: CPU): ThreeRegisterInstruction(cpu) {
 
 
 
-    override fun perform(){
-        cpu.drawToScreen(cpu.readRegister(x), cpu.readRegister(y), cpu.readRegister(z))
+    override fun perform() {
+        cpu.drawToScreen(cpu.readRegister(x), y, z)
     }
 }

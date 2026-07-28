@@ -28,6 +28,7 @@ class CPU(
 
     fun drawToScreen(value: Int, row: Int, column: Int){
         screen.draw(value, row, column)
+        screen.render()
     }
 
     fun readMemory(offset: Int = 0): Int{
@@ -71,7 +72,6 @@ class CPU(
                 val raw = fetch()
                 if (raw == 0x0000) break
                 factory.create(raw, this).execute(raw)
-                screen.render()
             }
         } catch(e: Exception){
             println("Program Terminated: ${e.message}")
