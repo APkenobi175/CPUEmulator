@@ -9,6 +9,7 @@ class CPU {
     private val ram = ByteStorage(4096)
     private val rom = ROM()
     private val keyboard = Keyboard()
+    private val timer = Timer()
     var addressRegister: Int = 0
     var memoryFlag: Boolean = false // false = RAM, true = ROM
 
@@ -43,5 +44,8 @@ class CPU {
     fun awaitKeyPress(): Int{
         return keyboard.readByte()
     }
+
+    fun readTimer(): Int = timer.get()
+    fun setTimer(v: Int) = timer.set(v)
 
 }
