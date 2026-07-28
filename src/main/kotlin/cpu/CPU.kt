@@ -1,18 +1,20 @@
 package cpu
 
+import instructions.SimpleInstructionFactory
 import io.Keyboard
 import io.Screen
 
-class CPU {
-
+class CPU(
+    private val rom: ROM,
+    private val screen: Screen,
+    private val keyboard: Keyboard,
+    private val timer: Timer
+) {
     private val registers = ByteStorage(8)
     private val ram = ByteStorage(4096)
-    private val rom = ROM()
-    private val keyboard = Keyboard()
-    private val timer = Timer()
+
     var addressRegister: Int = 0
     var memoryFlag: Boolean = false // false = RAM, true = ROM
-
     var programCounter: Int = 0
 
     fun readRegister(index: Int): Int{
@@ -23,7 +25,6 @@ class CPU {
         registers.write(index, value)
     }
 
-    private val screen = Screen()
 
     fun drawToScreen(value: Int, row: Int, column: Int){
         screen.draw(value, row, column)
@@ -47,5 +48,36 @@ class CPU {
 
     fun readTimer(): Int = timer.get()
     fun setTimer(v: Int) = timer.set(v)
+
+    private var running = false
+    fun halt(){
+        running = false
+    }
+
+
+    // Made it internal so I can test it
+    internal fun fetch(): Int{
+        val high = rom.read(programCounter)
+        val low = rom.read(programCounter + 1)
+        return (high shl 8) or low
+    }
+
+    fun run(){
+        val factory = SimpleInstructionFactory()
+        timer.start()
+        running = true
+        try{
+            while(running){
+                val raw = fetch()
+                if (raw == 0x0000) break
+                factory.create(raw, this).execute(raw)
+                screen.render()
+            }
+        } catch(e: Exception){
+            println("Program Terminated: ${e.message}")
+        } finally{
+            timer.stop()
+        }
+    }
 
 }

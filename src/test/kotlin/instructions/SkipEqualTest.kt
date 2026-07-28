@@ -1,7 +1,7 @@
 package instructions
 
-import cpu.CPU
 import org.junit.jupiter.api.DisplayName
+import testCpu
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -11,7 +11,7 @@ class SkipEqualTest {
     @Test
     @DisplayName("Equal registers skip the next instruction (PC += 4)")
     fun testSkipsWhenEqual() {
-        val cpu = CPU()
+        val cpu = testCpu()
         cpu.writeRegister(1, 42)
         cpu.writeRegister(2, 42)
         SkipEqual(cpu).execute(0x8120)   // x=1, y=2
@@ -21,7 +21,7 @@ class SkipEqualTest {
     @Test
     @DisplayName("Unequal registers do not skip (PC += 2)")
     fun testNoSkipWhenNotEqual() {
-        val cpu = CPU()
+        val cpu = testCpu()
         cpu.writeRegister(1, 42)
         cpu.writeRegister(2, 7)
         SkipEqual(cpu).execute(0x8120)

@@ -3,6 +3,7 @@ package instructions
 import cpu.CPU
 import RomWriteException
 import org.junit.jupiter.api.DisplayName
+import testCpu
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 import kotlin.test.assertEquals
@@ -14,7 +15,7 @@ class ReadWriteTests {
     @Test
     @DisplayName("Test Write and Read Instructions")
     fun testWriteThenRead() {
-        val cpu = CPU()
+        val cpu = testCpu()
         cpu.addressRegister = 100
         cpu.writeRegister(0, 42)
         Write(cpu).execute(0x4000)   // writes reg 0 to mem[A]
@@ -26,7 +27,7 @@ class ReadWriteTests {
     @Test
     @DisplayName("Test writing to ROM throws")
     fun testWriteToRomThrows() {
-        val cpu = CPU()
+        val cpu = testCpu()
         cpu.memoryFlag = true          // select ROM
         cpu.addressRegister = 0
         cpu.writeRegister(0, 42)
