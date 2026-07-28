@@ -1,5 +1,7 @@
 package cpu
 
+import RomWriteException
+
 class ROM(private val writable: Boolean = false): ByteStorage(4096) {
 
     override fun write(index: Int, value: Int){
@@ -22,5 +24,3 @@ class ROM(private val writable: Boolean = false): ByteStorage(4096) {
 }
 
 
-// Custom exception for trying to write to read only memory
-class RomWriteException(message: String): Exception(message)
