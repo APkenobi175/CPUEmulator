@@ -1,7 +1,7 @@
 package instructions
 
 import cpu.CPU
-import io.InvalidCharacterException
+import InvalidCharacterException
 import org.junit.jupiter.api.DisplayName
 import kotlin.test.Test
 import kotlin.test.assertFailsWith

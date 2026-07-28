@@ -1,7 +1,7 @@
 package io
+import InvalidCharacterException
 import cpu.ByteStorage
 
-class InvalidCharacterException(message: String) : Exception(message)
 
 class Screen {
     private val buffer = ByteStorage(64)
@@ -17,6 +17,9 @@ class Screen {
         buffer.write(toIndex(row, column), value)
     }
 
+
+    fun read(row: Int, column: Int): Int = buffer.read(toIndex(row, column))
+
     fun render(){
         for (row in 0 until 8){
             for (col in 0 until 8){
@@ -27,7 +30,7 @@ class Screen {
         }
     }
 
-    private fun clear(){
+    fun clear(){
         for (i in 0 until buffer.size){
             buffer.write(i, 0)
         }
