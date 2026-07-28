@@ -1,5 +1,7 @@
 package cpu
 
+import io.Screen
+
 class CPU {
 
     private val registers = ByteStorage(8)
@@ -12,6 +14,12 @@ class CPU {
 
     fun writeRegister(index: Int, value: Int){
         registers.write(index, value)
+    }
+
+    private val screen = Screen()
+
+    fun drawToScreen(value: Int, row: Int, column: Int){
+        screen.draw(value, row, column)
     }
 
 }

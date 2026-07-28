@@ -1,6 +1,13 @@
 package instructions
 
-class Draw {
+import cpu.CPU
+import io.Screen
 
-    // TODO I need to implement the screen first
+class Draw(cpu: CPU): ThreeRegisterInstruction(cpu) {
+
+
+
+    override fun perform(){
+        cpu.drawToScreen(cpu.readRegister(x), cpu.readRegister(y), cpu.readRegister(z))
+    }
 }

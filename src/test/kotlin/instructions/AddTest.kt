@@ -6,7 +6,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
-@DisplayName("Test ROM object")
+@DisplayName("Test Add Instruction")
 class AddTest {
 
     @Test
@@ -17,5 +17,15 @@ class AddTest {
         cpu.writeRegister(2, 3)
         Add(cpu).execute(0x1120) // opcode 1, x = 1, y = 2, z = 0
         assertEquals(8, cpu.readRegister(0))
+    }
+
+    @Test
+    @DisplayName("Add wraps on overflow")
+    fun testAddOverflow() {
+        val cpu = CPU()
+        cpu.writeRegister(1, 200)
+        cpu.writeRegister(2, 100)
+        Add(cpu).execute(0x1120) // opcode 1, x = 1, y = 2, z = 0
+        assertEquals(44, cpu.readRegister(0)) // 300 wraps to 44
     }
 }
