@@ -1,5 +1,6 @@
 package cpu
 
+import RomWriteException
 import org.junit.jupiter.api.DisplayName
 import kotlin.test.Test
 import kotlin.test.assertEquals

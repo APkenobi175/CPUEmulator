@@ -1,5 +1,6 @@
 package cpu
 
+import io.Keyboard
 import io.Screen
 
 class CPU {
@@ -7,6 +8,7 @@ class CPU {
     private val registers = ByteStorage(8)
     private val ram = ByteStorage(4096)
     private val rom = ROM()
+    private val keyboard = Keyboard()
     var addressRegister: Int = 0
     var memoryFlag: Boolean = false // false = RAM, true = ROM
 
@@ -36,6 +38,10 @@ class CPU {
     fun writeMemory(value: Int, offset: Int = 0){
         if (memoryFlag) rom.write(addressRegister + offset, value)
             else ram.write(addressRegister + offset, value)
+    }
+
+    fun awaitKeyPress(): Int{
+        return keyboard.readByte()
     }
 
 }
