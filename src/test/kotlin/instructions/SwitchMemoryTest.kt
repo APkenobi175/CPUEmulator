@@ -18,15 +18,15 @@ class SwitchMemoryTest {
         val cpu = testCpu()
         // starts false (RAM)
         SwitchMemory(cpu).execute(0x7000)
-        assertTrue(cpu.memoryFlag)
+        assertTrue(cpu.getMemoryBank())
     }
 
     @Test
     @DisplayName("SwitchMemory toggles the flag from true to false")
     fun testToggleFromTrue() {
         val cpu = testCpu()
-        cpu.memoryFlag = true
+        cpu.toggleMemoryBank()
         SwitchMemory(cpu).execute(0x7000)
-        assertFalse(cpu.memoryFlag)
+        assertFalse(cpu.getMemoryBank())
     }
 }

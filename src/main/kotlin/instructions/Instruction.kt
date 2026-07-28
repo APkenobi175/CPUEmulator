@@ -15,9 +15,6 @@ abstract class Instruction(protected val cpu: CPU) {
     fun execute(raw: Int){
         decode(raw)
         perform()
-        cpu.programCounter += pcIncrement()
+        cpu.advanceProgramCounter(pcIncrement())
     }
-
-
-
 }

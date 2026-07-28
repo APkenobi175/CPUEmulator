@@ -15,7 +15,7 @@ class JumpTest {
     fun testJumpSetsProgramCounter() {
         val cpu = testCpu()
         Jump(cpu).execute(0x51F2)          // address = 0x1F2 (even)
-        assertEquals(0x1F2, cpu.programCounter)
+        assertEquals(0x1F2, cpu.currentAddress())
     }
 
     @Test
@@ -23,7 +23,7 @@ class JumpTest {
     fun testJumpDoesNotIncrement() {
         val cpu = testCpu()
         Jump(cpu).execute(0x5100)          // address = 0x100
-        assertEquals(0x100, cpu.programCounter)   // exactly 0x100, not 0x102
+        assertEquals(0x100, cpu.currentAddress())   // exactly 0x100, not 0x102
     }
 
     @Test

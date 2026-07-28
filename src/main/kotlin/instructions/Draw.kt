@@ -1,7 +1,6 @@
 package instructions
 
 import cpu.CPU
-import io.Screen
 
 class Draw(cpu: CPU): ThreeRegisterInstruction(cpu) {
 

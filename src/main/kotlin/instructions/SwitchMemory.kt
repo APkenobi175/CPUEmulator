@@ -9,6 +9,6 @@ class SwitchMemory(cpu: CPU) : Instruction(cpu) {
     }
 
     override fun perform(){
-        cpu.memoryFlag = !cpu.memoryFlag
+        cpu.toggleMemoryBank()
     }
 }

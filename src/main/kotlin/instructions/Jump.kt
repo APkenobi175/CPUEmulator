@@ -6,7 +6,7 @@ class Jump(cpu: CPU): AddressInstruction(cpu) {
         if (address % 2 != 0){
             throw JumpException("Invalid address: $address")
         }
-        cpu.programCounter = address
+        cpu.jumpTo(address)
     }
 
     // Don't increment PC

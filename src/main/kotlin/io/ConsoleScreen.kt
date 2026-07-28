@@ -3,14 +3,14 @@ import InvalidCharacterException
 import cpu.ByteStorage
 
 
-class Screen {
+class ConsoleScreen: Display {
     private val buffer = ByteStorage(64)
 
     private fun toIndex(row: Int, column: Int): Int{
         return row * 8 + column // screen is 8x8 so to find index take row * 8 and add it to what column number we are on
     }
 
-    fun draw(value: Int, row: Int, column: Int){
+    override fun draw(value: Int, row: Int, column: Int){
         if (value > 0x7F){
             throw InvalidCharacterException("Value $value is not a valid character to print to screen")
         }
@@ -20,7 +20,7 @@ class Screen {
 
     fun read(row: Int, column: Int): Int = buffer.read(toIndex(row, column))
 
-    fun render() {
+    override fun render() {
         for (row in 0 until 8) {
             for (col in 0 until 8) {
                 val b = buffer.read(toIndex(row, col))
@@ -31,7 +31,7 @@ class Screen {
         println("========")               // frame separator
     }
 
-    fun clear(){
+    override fun clear(){
         for (i in 0 until buffer.size){
             buffer.write(i, 0)
         }

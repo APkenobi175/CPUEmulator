@@ -3,11 +3,11 @@ package cpu
 // This is the facade
 
 import io.Keyboard
-import io.Screen
+import io.ConsoleScreen
 import java.io.File
 
 class Computer {
-    private val screen = Screen()
+    private val screen = ConsoleScreen()
     private val keyboard = Keyboard()
     private val timer = Timer()
     private val rom = ROM()

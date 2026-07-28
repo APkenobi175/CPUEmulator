@@ -1,8 +1,8 @@
 package io
 
-class Keyboard {
+class Keyboard: InputDevice {
 
-    fun readByte(): Int {
+    override fun readByte(): Int {
 
         while (true) {
             print("Input (hex): ")

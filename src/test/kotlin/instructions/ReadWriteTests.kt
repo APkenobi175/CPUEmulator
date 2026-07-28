@@ -16,7 +16,7 @@ class ReadWriteTests {
     @DisplayName("Test Write and Read Instructions")
     fun testWriteThenRead() {
         val cpu = testCpu()
-        cpu.addressRegister = 100
+        cpu.setAddress(200)
         cpu.writeRegister(0, 42)
         Write(cpu).execute(0x4000)   // writes reg 0 to mem[A]
         // now read it back into a different register
@@ -28,8 +28,8 @@ class ReadWriteTests {
     @DisplayName("Test writing to ROM throws")
     fun testWriteToRomThrows() {
         val cpu = testCpu()
-        cpu.memoryFlag = true          // select ROM
-        cpu.addressRegister = 0
+        cpu.toggleMemoryBank()      // select ROM
+        cpu.setAddress(0)
         cpu.writeRegister(0, 42)
         assertFailsWith<RomWriteException> {
             Write(cpu).execute(0x4000)

@@ -14,7 +14,7 @@ class SetATest {
     fun testSetAStoresAddress() {
         val cpu = testCpu()
         SetA(cpu).execute(0xA255)          // address = 0x255
-        assertEquals(0x255, cpu.addressRegister)
+        assertEquals(0x255, cpu.getAddressRegister())
     }
 
     @Test
@@ -22,6 +22,6 @@ class SetATest {
     fun testSetAAdvancesPc() {
         val cpu = testCpu()
         SetA(cpu).execute(0xA255)
-        assertEquals(2, cpu.programCounter)
+        assertEquals(2, cpu.currentAddress())
     }
 }

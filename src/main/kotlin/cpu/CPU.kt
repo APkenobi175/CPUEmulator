@@ -1,21 +1,41 @@
 package cpu
-
 import instructions.SimpleInstructionFactory
-import io.Keyboard
-import io.Screen
+import io.Display
+
+import io.InputDevice
 
 class CPU(
     private val rom: ROM,
-    private val screen: Screen,
-    private val keyboard: Keyboard,
-    private val timer: Timer
+    private val screen: Display,
+    private val keyboard: InputDevice,
+    private val timer: Timer,
+    private val factory: SimpleInstructionFactory = SimpleInstructionFactory(),
 ) {
     private val registers = ByteStorage(8)
     private val ram = ByteStorage(4096)
 
-    var addressRegister: Int = 0
-    var memoryFlag: Boolean = false // false = RAM, true = ROM
-    var programCounter: Int = 0
+    private var addressRegister: Int = 0
+    fun setAddress(value: Int){
+        addressRegister = value
+    }
+    fun getAddressRegister(): Int = addressRegister
+    fun currentAddress(): Int{
+        return programCounter
+    }
+    private var memoryFlag: Boolean = false // false = RAM, true = ROM
+    fun toggleMemoryBank(){
+        memoryFlag = !memoryFlag
+    }
+    fun getMemoryBank(): Boolean{
+        return memoryFlag
+    }
+    private var programCounter: Int = 0
+    fun jumpTo(address: Int){
+        programCounter = address
+    }
+    fun advanceProgramCounter(amount: Int){
+        programCounter += amount
+    }
 
     fun readRegister(index: Int): Int{
         return registers.read(index)
@@ -64,7 +84,6 @@ class CPU(
     }
 
     fun run(){
-        val factory = SimpleInstructionFactory()
         timer.start()
         running = true
         try{
