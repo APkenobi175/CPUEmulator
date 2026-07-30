@@ -2,11 +2,11 @@ package instructions
 
 import cpu.CPU
 
-class SimpleInstructionFactory {
+class SimpleInstructionFactory: InstructionFactory {
 
     private fun opcode(raw: Int): Int = (raw shr 12) and 0xF
 
-    fun create(raw: Int, cpu: CPU): Instruction {
+    override fun create(raw: Int, cpu: CPU): Instruction {
         return when (opcode(raw)) {
             0x0 -> Store(cpu)
             0x1 -> Add(cpu)

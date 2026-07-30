@@ -15,7 +15,7 @@ class SkipNotEqualTest {
         cpu.writeRegister(1, 42)
         cpu.writeRegister(2, 7)
         SkipNotEqual(cpu).execute(0x9120)
-        assertEquals(4, cpu.currentAddress())
+        assertEquals(4, cpu.getCurrentAddress())
     }
 
     @Test
@@ -25,6 +25,6 @@ class SkipNotEqualTest {
         cpu.writeRegister(1, 42)
         cpu.writeRegister(2, 42)
         SkipNotEqual(cpu).execute(0x9120)
-        assertEquals(2, cpu.currentAddress())
+        assertEquals(2, cpu.getCurrentAddress())
     }
 }

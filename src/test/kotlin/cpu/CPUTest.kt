@@ -3,6 +3,7 @@ package cpu
 import instructions.Add
 import instructions.Draw
 import instructions.Sub
+import instructions.SimpleInstructionFactory
 import io.Keyboard
 import io.ConsoleScreen
 import org.junit.jupiter.api.DisplayName
@@ -19,7 +20,7 @@ class CPUTest {
     fun testProgramCounterAdd(){
         val cpu = testCpu()
         Add(cpu).execute(0x1120)
-        assertEquals(2, cpu.currentAddress())
+        assertEquals(2, cpu.getCurrentAddress())
     }
 
     @Test
@@ -27,7 +28,7 @@ class CPUTest {
     fun testProgramCounterSub(){
         val cpu = testCpu()
         Sub(cpu).execute(0x1120)
-        assertEquals(2, cpu.currentAddress())
+        assertEquals(2, cpu.getCurrentAddress())
     }
 
     @Test
@@ -36,7 +37,7 @@ class CPUTest {
         val cpu = testCpu()
         cpu.writeRegister(0, 0x41)
         Draw(cpu).execute(0xF012)
-        assertEquals(2, cpu.currentAddress())
+        assertEquals(2, cpu.getCurrentAddress())
     }
 
     @Test
@@ -44,7 +45,7 @@ class CPUTest {
     fun testFetchCombinesTwoBytes() {
         val rom = ROM()
         rom.load(byteArrayOf(0x12, 0x34))
-        val cpu = CPU(rom, ConsoleScreen(), Keyboard(), Timer())
+        val cpu = CPU(rom, ConsoleScreen(), Keyboard(), Timer(), SimpleInstructionFactory())
         // fetch reads PC=0: high=0x12, low=0x34 -> 0x1234
         assertEquals(0x1234, cpu.fetch())
     }

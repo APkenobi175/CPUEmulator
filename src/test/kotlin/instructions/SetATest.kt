@@ -22,6 +22,6 @@ class SetATest {
     fun testSetAAdvancesPc() {
         val cpu = testCpu()
         SetA(cpu).execute(0xA255)
-        assertEquals(2, cpu.currentAddress())
+        assertEquals(2, cpu.getCurrentAddress())
     }
 }

@@ -2,16 +2,9 @@ package cpu
 
 // This is the facade
 
-import io.Keyboard
-import io.ConsoleScreen
 import java.io.File
 
-class Computer {
-    private val screen = ConsoleScreen()
-    private val keyboard = Keyboard()
-    private val timer = Timer()
-    private val rom = ROM()
-    private val cpu = CPU(rom, screen, keyboard, timer)
+class Computer(private val rom: ROM, private val cpu: CPU){ // Evalith feedback : Computer receives collaborators instead of constructing them
 
     fun load(path: String) {
         val bytes = File(path).readBytes()
