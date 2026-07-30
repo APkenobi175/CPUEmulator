@@ -1,8 +1,9 @@
 package cpu
 
-import instructions.SimpleInstructionFactory
-import io.ConsoleScreen
-import io.Keyboard
+import instructions.InstructionFactory
+import io.Display
+import io.InputDevice
+
 
 
 // Evalith Feedback: Keep instantiations out of Computer. Computer receives its collaborators instead of constructing them
@@ -10,13 +11,14 @@ import io.Keyboard
 
 
 object ComputerFactory {
-
-    fun createComputer(): Computer{
+    fun create(
+        screen: Display,
+        keyboard: InputDevice,
+        timer: Timer,
+        factory: InstructionFactory // Evalith feedback part 3: This is better but hard coded, this section removes the hardcodedness
+    ): Computer {
         val rom = ROM()
-        val screen = ConsoleScreen()
-        val keyboard = Keyboard()
-        val timer = Timer()
-        val cpu = CPU(rom, screen, keyboard, timer, SimpleInstructionFactory())
+        val cpu = CPU(rom, screen, keyboard, timer, factory)
         return Computer(rom, cpu)
     }
 }
